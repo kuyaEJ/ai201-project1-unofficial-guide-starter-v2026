@@ -55,8 +55,8 @@ in at least 4 of 5 tries.
 
 ---
 
-## 4. Something about your chunks
-
+## 4. Reducing chunk overlap with broken sentences
+     For at least 1 test question there should be at least 1 in the top 3 chunks that ends with a punctuation symbol.
 <!-- YOU WRITE THIS ONE.
 
      How would you know if your chunks were the right size? Name something
@@ -72,13 +72,15 @@ in at least 4 of 5 tries.
 
 
 **Why this target:**
+<!-- Reason:
+     Chunks should not be too small or they would not be relevant enough to make sense. A chunk should have 4-8 words in them to be relevant enough with punctuation being good markers for where to end a chunk. -->
 
 
 
 ---
 
-## 5. Your choice
-
+## 5. Unanswerable questions should scan entire corpus before terminating
+     The unofficial guide should scan **all** documents in the corpus before terminating with `I don't have enough information about that` when `top-k` in config.py is set to a value that is greater than or equal to the total number of chunks in the corpus like 37.
 <!-- YOU WRITE THIS ONE TOO.
 
      Pick something you actually care about getting right. It could be about
@@ -87,10 +89,11 @@ in at least 4 of 5 tries.
      present — anything, as long as it names a number or an observable
      outcome. -->
 
-
+ 
 
 **Why this target:**
-
+<!-- This target ensures that the corpora truly cannot answer the question by searching all documents. This prevents the system from missing a good chunk that was lying further down the vector distance because of the system stopping prematurely.
+ -->
 
 
 ---

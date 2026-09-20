@@ -7,7 +7,7 @@ __pycache__/
 .venv/
 venv/
 env/
-
+self_checker.html
 # Jupyter
 .ipynb_checkpoints/
 
