@@ -1,7 +1,8 @@
 # The Unofficial Guide
 
-<!-- Replace this line with your name and which corpus you picked. -->
+Submitted by: Erick Vergara
 
+Corpus selected: `city_guides`
 > **This file is your submission.** Fill it in as you go — most sections get
 > written during the milestone that produces them, not at the end.
 >
@@ -134,7 +135,7 @@
      how it went. -->
 
 ## Run Log — Before
-
+When I ask a question that is relevant to more than one corpus the retrieved chunks of the system should be able to answer 4 out of 5 of my test questions.
 <!-- Your five criteria, three runs each. `python run_eval.py --label before`
      runs the questions, puts the OUT_OF_SCOPE ones through the gate, and
      writes it all into results/ for you. Targets come from criteria.md; the
