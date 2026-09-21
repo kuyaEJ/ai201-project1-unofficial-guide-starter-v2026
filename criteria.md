@@ -59,9 +59,15 @@ The relevance gate cutoff might be too high, so the system might try to answer a
 ---
 
 ## 4. Reducing chunk overlap with broken sentences
-100% of retrieved top-3 chunks across all test questions must end with a valid sentence punctuation mark (., !, ?) or a Markdown header tag, with zero trailing mid-sentence fragments.
+**Target**:For at least 1 test question there should be at least 1 chunk in the top 3 chunks that ends with a punctuation symbol.   
 
-<!-- For at least 1 test question there should be at least 1 chunk in the top 3 chunks that ends with a punctuation symbol. -->
+**Why this target:**
+     Chunks should not be too small or they would not be relevant enough to make sense. A chunk should have 4-8 words in them to be relevant enough with punctuation being good markers for where to end a chunk.
+
+
+**REVISED (UNIT 1):** 100% of retrieved top-3 chunks across all test questions must end with a valid sentence punctuation mark (., !, ?) or a Markdown header tag, with zero trailing mid-sentence fragments.
+
+**Reason for revising:** The top chunks that scored the highest shouldn't be missing any information and need to form complete ideas which prevents garbage chunks such as low character numbers (header only chunks) or short sections
 <!-- YOU WRITE THIS ONE.
 
      How would you know if your chunks were the right size? Name something
@@ -74,17 +80,6 @@ The relevance gate cutoff might be too high, so the system might try to answer a
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." 
 -->
-
-
-
-**Why this target:**
-The top chunks that scored the highest shouldn't be missing any information and need to form complete ideas which prevents garbage chunks such as low character numbers (header only chunks) or short sections
-
-<!-- New criteria: -->
-<!-- Reason:
-     Chunks should not be too small or they would not be relevant enough to make sense. A chunk should have 4-8 words in them to be relevant enough with punctuation being good markers for where to end a chunk. 
--->
-
 
 
 ---
