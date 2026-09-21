@@ -11,7 +11,7 @@ Corpus selected: `city_guides`
 ## What This Does
 This project runs **Retrieval-Augmented Generation** (RAG) on your local machine which retrives a limited bank of information we provided to answer questions about a certain corpus or topic. 
 
-I will be using the `city_guides` corpus. It has a collection of information about locations in the city to eat, the environment, seasons, and the nearby towns. The city_guides files are longer than the other corpus's and have many headers which will change how the RAG processes information
+I will be using the `city_guides` corpus. It has a collection of information about locations in the city to eat, the environment, seasons, and the nearby towns. The `city_guides` file's are longer than the other corpora and have many headers which will change how the RAG processes information
 
 The questions my corpus system could answer would: be what is the easiest town to walk in, which places has transportation, and what are some warnings about navigating the city?
 
@@ -148,7 +148,7 @@ Sources retrieved: [from guide_brightwater.md]
 | What is Elder Ness? | Y | 0.188 | Description of village | Y |
 | Which towns have a hospital and what times are they open? | Y | 0.490 | Marchwood and Brightwater | Y |
 | If any, where are the grocery stores? | Y | 0.6 | Brightwater, and Marchwood | N |
-| Where does the name of the town Elder ness originate from? | N | 0.193 | I don't have enough information about that | N |
+| Where does the name of the town Elder ness originate from? | N | 0.193 | I don't have enough information about that | Y |
 | What is the capital of Mongolia? | N | 0.754 | ^ | Y |
 | How do I change the oil in a diesel engine? | N | 0.889 | ^ | Y |
 | Who won the 1994 World Cup? | N | 0.899 | ^ | Y |
