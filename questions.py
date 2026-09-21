@@ -24,8 +24,8 @@ names a target of "4 of 5", and four of three is not a thing.
 QUESTIONS = [
     # {"question": "...", "expects": "..."},
     {"question": "What town is the easiest to walk in for those who require accessibility?", "expects": "Thornby Wells."},
-    {"question": "What is Elder Ness?", "expects": "A small village"},
-    {"question": "Which towns have a hospital and what times are they open?", "expects": "Marchwood and Brightwater have full hospitals."},
+    {"question": "What is Elder Ness?", "expects": "Description of village"},
+    {"question": "Which towns have a hospital and what times are they open?", "expects": "Marchwood and Brightwater full hospitals."},
     {"question": "If any, where are the grocery stores?", "expects": "Kestrelford, Brightwater, and Marchwood have stores."},
     {"question": "Where does the name of the town Elder ness originate from?", "expects": "I don't have enough information about that"},
 ]

@@ -23,9 +23,9 @@ The questions my corpus system could answer would: be what is the easiest town t
 
 ## Chunking Strategy
 
-**Chunk size:**700
+**Chunk size:** 700
 
-**Overlap:**100
+**Overlap:** 100
 
 This is the perfect size for matching the document sections. This eliminates trailing chunks and mid-sentence fragments where chunks are too small or some chunks are too big. 
 
@@ -142,13 +142,18 @@ Sources retrieved: [from guide_brightwater.md]
 
      Milestone 4. -->
 
-| Question | In corpus? | Best distance |
-|---|---|---|
-| What town is the easiest to walk in for those who require accessibility? | Yes | 0.498 |
-| What is Elder Ness? | Yes | 0.188 |
-| Which towns have a hospital and what times are they open? | Yes | 0.490 |
-| If any, where are the grocery stores? | Yes | 0.6 |
-| Where does the name of the town Elder ness originate from? | No | 0.193 |
+| Question | In corpus? | Best distance | Expected answer | Answered expectedly?|
+|---|---|---|---|---|
+| What town is the easiest to walk in for those who require accessibility? | Y | 0.498 | Thornby Wells | N |
+| What is Elder Ness? | Y | 0.188 | Description of village | Y |
+| Which towns have a hospital and what times are they open? | Y | 0.490 | Marchwood and Brightwater | Y |
+| If any, where are the grocery stores? | Y | 0.6 | Brightwater, and Marchwood | N |
+| Where does the name of the town Elder ness originate from? | N | 0.193 | I don't have enough information about that | N |
+| What is the capital of Mongolia? | N | 0.754 | ^ | Y |
+| How do I change the oil in a diesel engine? | N | 0.889 | ^ | Y |
+| Who won the 1994 World Cup? | N | 0.899 | ^ | Y |
+| What is the recommended dosage of ibuprofen for a headache? | N | 0.838 | ^ | Y |
+| How do I write a for loop in Rust? | N | 0.838 | ^ | Y |
 
 ## How I Used AI
 
@@ -161,10 +166,10 @@ Sources retrieved: [from guide_brightwater.md]
 
      Milestone 5. -->
 
-**1.**I used AI to analyze my solutions. It revealed keywords in my test questions like `Elder Ness` trigger the system to think it has an answer which wastes token calls on **false positives**.. I learned I could write my test questions better, but also that I can try to prevent edge cases of keywords that may trigger wasted API calls.
+**1.** I used AI to analyze my solutions. It revealed keywords in my test questions like `Elder Ness` trigger the system to think it has an answer which wastes token calls on **false positives**.. I learned I could write my test questions better, but also that I can try to prevent edge cases of keywords that may trigger wasted API calls.
 
 
-**2.**I used AI to help me understand how to write an acceptance criteria for the code. I was stuck for many hours and asked it to explain chunk_size and chunk_overlay. It told me its so weak it passed by accident. I changed the rule to require 100% of top retrieved chunks to end on clean sentence or header boundaries
+**2.** I used AI to help me understand how to write an acceptance criteria for the code. I was stuck for many hours and asked it to explain chunk_size and chunk_overlay. It told me its so weak it passed by accident. I changed the rule to require 100% of top retrieved chunks to end on clean sentence or header boundaries
 
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
