@@ -104,18 +104,24 @@ def split_documents(documents: list[Document]) -> list[Chunk]:
     if overlap >= chunk_size:
         raise ValueError("overlap has to be smaller than chunk_size")
     """
-    This is what I could come up in the 2 hours I was working on it. I will revise it as I learn and test
-    more. I was stuck on understanding milestone 2 for longer than 5 hours so I didn't have much time for coding.
-    It doesn't use chunk_size or chunk_overlap though since it is a basic implementation meant to seperate chunks
-    by headers. 
+    This is what I could come up in the 2 hours I was working on it. 
+    
+    I will revise it as I learn and test more. I was stuck on trying to do 
+    milestone 2's acceptance criteria for  longer than 5 hours so I didn't
+    have much time for coding.
 
-    Weaknesses: Shortest chunk is only 25 characters (probably a header that ends early for some reason).
+    It doesn't use chunk_size or chunk_overlap since it is a basic 
+    implementation meant to seperate chunks by headers. 
+
+    Weaknesses: Shortest chunk is only 25 characters (probably a header that 
+                ends early for some reason).
                 Probably not good at scale.
 
     Results:
         Corpus: city_guides
         loaded   14 documents, 28,958 characters, ~2,068 characters per document
-        chunked  98 chunks, 293 characters on average (shortest 25, longest 711), produced by chunker.py::split_documents
+        chunked  98 chunks, 293 characters on average (shortest 25, longest 711), 
+            produced by chunker.py::split_documents
         embedding 98 chunks (first run downloads the model)...
         stored   98 chunks in 13.8s
 

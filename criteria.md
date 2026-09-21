@@ -23,6 +23,7 @@ For at least 4 of my 5 test questions, the retrieved chunks include one that
 contains the answer.
 
 **Why this target:**
+There must be an answer from a retrieved chunk for at least 4 of 5 test questions since 1 could be out due to the relevance gate cutoff being too high. Otherwise every test question has an expected answer from the documents except one.
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
 
@@ -33,6 +34,7 @@ contains the answer.
 Every answer the system produces names at least one source document.
 
 **Why this target:**
+The answers the system references should at least come from one source or more sources otherwise it has no answer.
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
 
@@ -50,13 +52,16 @@ in at least 4 of 5 tries.
      just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
 
 **Why this target:**
+The relevance gate cutoff might be too high, so the system might try to answer a test question even if it doesn't cover the question.
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
 ---
 
 ## 4. Reducing chunk overlap with broken sentences
-     For at least 1 test question there should be at least 1 in the top 3 chunks that ends with a punctuation symbol.
+100% of retrieved top-3 chunks across all test questions must end with a valid sentence punctuation mark (., !, ?) or a Markdown header tag, with zero trailing mid-sentence fragments.
+
+<!-- For at least 1 test question there should be at least 1 chunk in the top 3 chunks that ends with a punctuation symbol. -->
 <!-- YOU WRITE THIS ONE.
 
      How would you know if your chunks were the right size? Name something
@@ -67,20 +72,26 @@ in at least 4 of 5 tries.
        - "At least 4 of 5 sampled chunks read as a complete thought, with no
           sentence cut in half at either end."
        - "No chunk is shorter than 200 characters, since anything below that
-          in my corpus turned out to be a heading with no content under it." -->
+          in my corpus turned out to be a heading with no content under it." 
+-->
 
 
 
 **Why this target:**
+The top chunks that scored the highest shouldn't be missing any information and need to form complete ideas which prevents garbage chunks such as low character numbers (header only chunks) or short sections
+
+<!-- New criteria: -->
 <!-- Reason:
-     Chunks should not be too small or they would not be relevant enough to make sense. A chunk should have 4-8 words in them to be relevant enough with punctuation being good markers for where to end a chunk. -->
+     Chunks should not be too small or they would not be relevant enough to make sense. A chunk should have 4-8 words in them to be relevant enough with punctuation being good markers for where to end a chunk. 
+-->
 
 
 
 ---
 
 ## 5. Unanswerable questions should scan entire corpus before terminating
-     The unofficial guide should scan **all** documents in the corpus before terminating with `I don't have enough information about that` when `top-k` in config.py is set to a value that is greater than or equal to the total number of chunks in the corpus like 37.
+The unofficial guide should scan **all** documents in the corpus before terminating with `I don't have enough information about that` when `top-k` in config.py is set to a value that is greater than or equal to the total number of chunks in the corpus like 37.
+
 <!-- YOU WRITE THIS ONE TOO.
 
      Pick something you actually care about getting right. It could be about
@@ -92,8 +103,8 @@ in at least 4 of 5 tries.
  
 
 **Why this target:**
-<!-- This target ensures that the corpora truly cannot answer the question by searching all documents. This prevents the system from missing a good chunk that was lying further down the vector distance because of the system stopping prematurely.
- -->
+This target ensures that the corpora truly cannot answer the question by searching all documents. This prevents the system from missing a good chunk that was lying further down the vector distance because of the system stopping prematurely.
+
 
 
 ---

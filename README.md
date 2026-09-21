@@ -3,24 +3,19 @@
 Submitted by: Erick Vergara
 
 Corpus selected: `city_guides`
-> **This file is your submission.** Fill it in as you go — most sections get
-> written during the milestone that produces them, not at the end.
->
-> How the starter works, and every command you'll need, is in `RUNNING.md`.
-> Leave that file alone.
->
-> **Paste everything as text.** No screenshots, no video. A typed table gets
-> full credit; a picture of the same table gets none.
->
-> Delete these instruction blocks as you replace them. The `<!-- -->` comments
-> are notes to you and don't show up when the page renders — you can leave them
-> or remove them.
 
 ---
 
 # Unit 1
 
 ## What This Does
+<!-- This project runs **Retrieval-Augmented Generation** (RAG) on your local machine which retrives a limited bank of information we provided to answer questions about a certain corpus or topic. 
+
+I will be using the `city_guides` corpus. It has a collection of information about locations in the city to eat, the environment, seasons, and the nearby towns. The city_guides files are longer than the other corpus's and have many headers which will change how the RAG processes information
+
+The questions my corpus system could answer would: be what is the easiest town to walk in, which places has transportation, and what are some warnings about navigating the city?
+
+The information is in long guides and spread across a long paragraph. -->
 
 <!-- Three or four sentences. Which corpus you picked, and the kinds of
      questions your system answers. Write it for someone who has never seen
@@ -30,8 +25,25 @@ Corpus selected: `city_guides`
 
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+**Chunk size:**700
+
+**Overlap:**100
+
+> Note: `split_documents` doesn't use chunk_size or chunk_overlap. Each chunk will be header separated. I will add chunk_size and chunk_overlap once I have more time.
+
+> Sidenote: `structure_chunk` has also has a sentence by sentence chunking strategy that uses chunk_size but doesn't use chunk_overlay. It is Gemini's solution so I only used it for testing.
+
+This is the perfect size for matching the document sections. This eliminates trailing chunks and mid-sentence fragments where chunks are too small or some chunks are too big. 
+
+Every section in the document has around 200 to 700 characters and document headings usually tend to be around 50 characters
+
+We want the chunk to encompass the entire section and the headers. 
+
+`guide_accessibility.md` has 698 characters in one section.
+
+`guide_eating.md` has 653 characters in one section.
+
+Documents are around 2k characters on average so these numbers ensure that every section is included. If there were bigger sections or smaller sections the results for chunks will change so this only works for this specific corpus.
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
      long sectioned guides don't want the same chunking, and "800 seemed
@@ -109,13 +121,19 @@ cards only.
      visible. Milestone 4. -->
 
 **Question:**
+What town is the easiest to walk in for those who require accessibility?"
 
 **Answer:**
 
 ```
+According to the unofficial guide brightwater town is walkable end to end in about 35 minutes with two local bus routes at 30 min headway intervals until 7pm which stops on Sundays. Taxis exist but must be phoned; they do not circulate looking for fares. This is the easiest place to walk around compared to the information from other towns.
+
+Sources retrieved: [from guide_brightwater.md]
 ```
 
-**My relevance cutoff:**
+**My relevance cutoff:** 0.5
+
+
 
 <!-- The number you set in config.py, and how you got there.
 
@@ -128,7 +146,11 @@ cards only.
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| What town is the easiest to walk in for those who require accessibility? | Yes | 0.498 |
+| What is Elder Ness? | Yes | 0.188 |
+| Which towns have a hospital and what times are they open? | Yes | 0.490 |
+| If any, where are the grocery stores? | Yes | 0.6 |
+| Where does the name of the town Elder ness originate from? | No | 0.193 |
 
 ## How I Used AI
 
@@ -141,9 +163,11 @@ cards only.
 
      Milestone 5. -->
 
-**1.**
+<!-- **1.**I used AI to analyze my solutions. It revealed keywords in my test questions like `Elder Ness` trigger the system to think it has an answer which wastes token calls on **false positives**.. I learned I could write my test questions better, but also that I can try to prevent edge cases of keywords that may trigger wasted API calls.
 
-**2.**
+
+**2.**I used AI to help me understand how to write an acceptance criteria for the code. I was stuck for many hours and asked it to explain chunk_size and chunk_overlay. It told me its so weak it passed by accident. I changed the rule to require 100% of top retrieved chunks to end on clean sentence or header boundaries -->
+
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
