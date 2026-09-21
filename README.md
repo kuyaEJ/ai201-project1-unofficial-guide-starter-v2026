@@ -15,8 +15,6 @@ I will be using the `city_guides` corpus. It has a collection of information abo
 
 The questions my corpus system could answer would: be what is the easiest town to walk in, which places has transportation, and what are some warnings about navigating the city?
 
-The information is in long guides and spread across a long paragraph.
-
 <!-- Three or four sentences. Which corpus you picked, and the kinds of
      questions your system answers. Write it for someone who has never seen
      this repo.
@@ -29,10 +27,6 @@ The information is in long guides and spread across a long paragraph.
 
 **Overlap:**100
 
-> Note: `split_documents` doesn't use chunk_size or chunk_overlap. Each chunk will be header separated. I will add chunk_size and chunk_overlap once I have more time.
-
-> Sidenote: `structure_chunk` has also has a sentence by sentence chunking strategy that uses chunk_size but doesn't use chunk_overlay. It is Gemini's solution so I only used it for testing.
-
 This is the perfect size for matching the document sections. This eliminates trailing chunks and mid-sentence fragments where chunks are too small or some chunks are too big. 
 
 Every section in the document has around 200 to 700 characters and document headings usually tend to be around 50 characters
@@ -44,6 +38,10 @@ We want the chunk to encompass the entire section and the headers.
 `guide_eating.md` has 653 characters in one section.
 
 Documents are around 2k characters on average so these numbers ensure that every section is included. If there were bigger sections or smaller sections the results for chunks will change so this only works for this specific corpus.
+
+> Note: My implementation in `split_documents` doesn't use chunk_size or chunk_overlap. Each chunk is currently header separated without using the variables. I will add chunk_size and chunk_overlap once I have more time.
+
+> Sidenote: `structure_chunk` has also has a sentence by sentence chunking strategy that uses chunk_size but doesn't use chunk_overlay. It is Gemini's solution so I only used it for testing.
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
      long sectioned guides don't want the same chunking, and "800 seemed
