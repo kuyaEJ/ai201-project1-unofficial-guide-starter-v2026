@@ -307,6 +307,8 @@ This definitely helped the system to answer questions since it eventually found 
      Milestone 4. -->
 
 ## What's Still Broken
+To fix the system I would change the search and scoring of questions to increase the accuracy of the `top_k` chunks retrieved.
+
 Question 4 is failing and cannot find the answer still. It it is the the answer is in the `eating.md` file and it does read a chunk from it but the model doesn't find the answer since it is not the correct chunk. The matching for vector distance in this question is especially bad in retrieval since grocery is a synonym of the stores label as market which confuses the system into thinking there's no answer.
 
 Question 5 is failing successfully but still shouldn't be doing model calls and searching for an answer. The system should already know it cannot provide one. My fix doesn't address this issue and I didn't try to fix it since it requires changing parts of the code I don't understand or that there's no support for testing currently and no time.
@@ -321,7 +323,13 @@ The 5th acceptance criteria for unanswerable questions also isn't met still due 
      Milestone 5. -->
 
 ## What I'd Do Differently
+Knowing what I know now, the next time I write acceptance criteria I will still take the advice of writing something that should not be easy to fill. I would write them better since I now understand how RAG pipeline works. 
 
+For example, a good acceptance criteria would test edge cases to see whether it can parse a question, find the right answer, get the right chunks early, and split the chunks correctly to ensure readability for the answers of test questions as well.
+
+I would rewrite acceptance criteria 4 to have a higher target and rewrite criteria 5 to be accepting of any solution. I'd also not let criteria 5 scan all documents and change it to that the first top_k documents must return the answer. This way I can focus more on coding better solutions in split_documents, judge function, vector scoring function, and test results more rather spending too much time counting quantities or writing explanations since I know more about how RAG should work now.
+
+I'd also try to create more functions that would help display important things like in run_eval.py it would've helped to have a file that showed the top chunks per run so I know what it retrieved in what documents and where. The command that returns top chunks isn't being used in run_eval.py which would make testing much faster and getting answers of criteria faster as well. 
 <!-- Knowing what you know now — which of your five criteria would you write
      differently, and why?
 
