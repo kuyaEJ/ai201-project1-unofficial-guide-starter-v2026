@@ -186,7 +186,6 @@ Sources retrieved: [from guide_brightwater.md]
      how it went. -->
 
 ## Run Log — Before
-When I ask a question that is relevant to more than one corpus the retrieved chunks of the system should be able to answer 4 out of 5 of my test questions.
 <!-- Your five criteria, three runs each. `python run_eval.py --label before`
      runs the questions, puts the OUT_OF_SCOPE ones through the gate, and
      writes it all into results/ for you. Targets come from criteria.md; the
@@ -199,15 +198,152 @@ When I ask a question that is relevant to more than one corpus the retrieved chu
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 3/5 | 3/5 | 3/5 | MISSED |
 | 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. 1 chunk of top 3 chunks ending with punctuation symbol. | 1 of 5 | | | | |
-| 5. Unanswerable questions should scan entire corpus before terminating when top_k is 37 or more. | 5 of 5 | | | | |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. 1 chunk of top 3 chunks ending with punctuation symbol. | 1/5 | 5/5 | 5/5| 5/5 | MET |
+| 5. Unanswerable questions should scan entire corpus before terminating when top_k is 37 or more. | 5 of 5 | 0/5 | 0/5 | 0/5 | MISSED |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
+
+### What town is the easiest to walk in for those who require accessibility? — run 1
+
+- Best distance: 0.4984 (passed the gate)
+- Sources retrieved: guide_brightwater.md, guide_corry_vale.md, guide_elder_ness.md, guide_halden_bay.md, guide_kestrelford.md
+
+```
+I do not have enough information to answer this question, as the provided documents do not mention accessibility requirements.
+```
+
+### What town is the easiest to walk in for those who require accessibility? — run 2
+
+- Best distance: 0.4984 (passed the gate)
+- Sources retrieved: guide_brightwater.md, guide_corry_vale.md, guide_elder_ness.md, guide_halden_bay.md, guide_kestrelford.md
+
+```
+I don't have enough information to answer which town is the easiest to walk in for those who require accessibility.
+```
+
+### What town is the easiest to walk in for those who require accessibility? — run 3
+
+- Best distance: 0.4984 (passed the gate)
+- Sources retrieved: guide_brightwater.md, guide_corry_vale.md, guide_elder_ness.md, guide_halden_bay.md, guide_kestrelford.md
+
+```
+I do not have enough information to answer this question, as the documents do not discuss accessibility for individuals with special requirements.
+```
+
+### What is Elder Ness? — run 1
+
+- Best distance: 0.1876 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_eating.md, guide_elder_ness.md, guide_walking.md
+
+```
+According to `guide_elder_ness.md`, Elder Ness is a headland featuring a village of 300 residents, a lighthouse, a bird observatory, and very little else.
+```
+
+### What is Elder Ness? — run 2
+
+- Best distance: 0.1876 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_eating.md, guide_elder_ness.md, guide_walking.md
+
+```
+According to `guide_elder_ness.md`, Elder Ness is a headland featuring a village of 300 residents, a lighthouse, a bird observatory, and very little else.
+```
+
+### What is Elder Ness? — run 3
+
+- Best distance: 0.1876 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_eating.md, guide_elder_ness.md, guide_walking.md
+
+```
+Based on the provided documents, Elder Ness is a headland featuring a village of 300 people, a lighthouse, a bird observatory, a shingle landscape, a single street, one shop, and one pub (source: `guide_elder_ness.md`, `guide_eating.md`, `guide_walking.md`, and `guide_accessibility.md`).
+```
+
+### Which towns have a hospital and what times are they open? — run 1
+
+- Best distance: 0.4897 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_corry_vale.md, guide_halden_bay.md, guide_kestrelford.md, guide_thornby_wells.md
+
+```
+Based on the provided documents, Brightwater has a hospital (guide_accessibility.md). Additionally, the nearest full hospital for Halden Bay, Kestrelford, and Corry Vale is located in Brightwater (guide_halden_bay.md, guide_kestrelford.md, guide_corry_vale.md). 
+
+However, the documents do not state what times the hospitals are open; they only mention that minor injuries units have limited hours (guide_accessibility.md).
+```
+
+### Which towns have a hospital and what times are they open? — run 2
+
+- Best distance: 0.4897 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_corry_vale.md, guide_halden_bay.md, guide_kestrelford.md, guide_thornby_wells.md
+
+```
+Based on the provided documents, Brightwater has a hospital (guide_accessibility.md), but the documents do not state what times it is open.
+```
+
+### Which towns have a hospital and what times are they open? — run 3
+
+- Best distance: 0.4897 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_corry_vale.md, guide_halden_bay.md, guide_kestrelford.md, guide_thornby_wells.md
+
+```
+Based on the provided documents, Brightwater has a hospital (guide_accessibility.md), but the documents do not state what times it is open.
+```
+
+### If any, where are the grocery stores? — run 1
+
+- Best distance: 0.5997 (refused by the gate)
+- Sources retrieved: guide_brightwater.md, guide_corry_vale.md, guide_eating.md, guide_kestrelford.md
+
+```
+I don't have enough information about that.
+```
+
+### If any, where are the grocery stores? — run 2
+
+- Best distance: 0.5997 (refused by the gate)
+- Sources retrieved: guide_brightwater.md, guide_corry_vale.md, guide_eating.md, guide_kestrelford.md
+
+```
+I don't have enough information about that.
+```
+
+### If any, where are the grocery stores? — run 3
+
+- Best distance: 0.5997 (refused by the gate)
+- Sources retrieved: guide_brightwater.md, guide_corry_vale.md, guide_eating.md, guide_kestrelford.md
+
+```
+I don't have enough information about that.
+```
+
+### Where does the name of the town Elder ness originate from? — run 1
+
+- Best distance: 0.2798 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_eating.md, guide_elder_ness.md, guide_thornby_wells.md
+
+```
+I don't have enough information to answer your question, as the provided documents do not mention the origin of the name Elder Ness.
+```
+
+### Where does the name of the town Elder ness originate from? — run 2
+
+- Best distance: 0.2798 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_eating.md, guide_elder_ness.md, guide_thornby_wells.md
+
+```
+I don't have enough information to answer where the name of the town Elder Ness originated from, as the documents do not mention its origin.
+```
+
+### Where does the name of the town Elder ness originate from? — run 3
+
+- Best distance: 0.2798 (passed the gate)
+- Sources retrieved: guide_accessibility.md, guide_eating.md, guide_elder_ness.md, guide_thornby_wells.md
+
+```
+I do not have enough information to answer this question from the provided documents.
+```
 
 ## Verdicts
 
