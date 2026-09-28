@@ -298,7 +298,7 @@ From file: `run_2026-09-27_2046_after.md` and from function `run_eval.py::judge`
 
 
 **Did it help?**
-
+This definitely helped the system to answer questions since it eventually found the right chunk without having to search the entire corpora. It doesn't solve every issue but tinkering with config.py does help make answers more findable.
 <!-- Say plainly whether it did, and how you know. If it made things worse,
      say that — a change that backfired, honestly reported, earns full credit
      and is more interesting than one that worked. What matters is that you can
@@ -307,7 +307,11 @@ From file: `run_2026-09-27_2046_after.md` and from function `run_eval.py::judge`
      Milestone 4. -->
 
 ## What's Still Broken
+Question 4 is failing and cannot find the answer still. It it is the the answer is in the `eating.md` file and it does read a chunk from it but the model doesn't find the answer since it is not the correct chunk. The matching for vector distance in this question is especially bad in retrieval since grocery is a synonym of the stores label as market which confuses the system into thinking there's no answer.
 
+Question 5 is failing successfully but still shouldn't be doing model calls and searching for an answer. The system should already know it cannot provide one. My fix doesn't address this issue and I didn't try to fix it since it requires changing parts of the code I don't understand or that there's no support for testing currently and no time.
+
+The 5th acceptance criteria for unanswerable questions also isn't met still due to `top_k` not being high enough. However, the system would make too many model calls, waste tokens, time, and processing on retrieval with this solution. It is better to optimize the chunking with a second strategy (chunk_size, overlap, or different split function by character counts), or to add a keyword search (BM25) into the system so that the question terms are not being glided past. In other words, better question lookup in documents and better vector distance scoring would fix the retrieval accuracy per question.
 <!-- For each criterion still missed after your fix: what you'd do about it,
      and why you stopped where you did.
 
