@@ -267,9 +267,9 @@ Overall, some targets were defintely set too low which was unintended. Then agai
 ## The Improvement
 
 **What I changed:**
-
+I changed `top-k` to `10` so that it doesn't retrieve too many chunks but has just enough chunks to find the answer to question 1.
 **Why I picked it:**
-
+I picked this since it was the simplest to solve and vastly improved the margin of error for answering questions.
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
 
@@ -280,11 +280,22 @@ Overall, some targets were defintely set too low which was unintended. Then agai
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 4/5 | 4/5 | 4/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. 1 chunk of top 3 chunks ending with punctuation symbol.| 1 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Unanswerable questions should scan entire corpus before terminating when top_k is 37 or more. | 1 of 5 | 0/5 | 0/5 | 0/5 | 0/5 |
+
+From file: `run_2026-09-27_2046_after.md` and from function `run_eval.py::judge`
+
+| Question | Run 1 | Run 2 | Run 3 |
+|---|---|---|---|
+| What town is the easiest to walk in for those who require accessibility? | fail | fail | fail |
+| What is Elder Ness? | fail | fail | fail |
+| Which towns have a hospital and what times are they open? | fail | fail | fail |
+| If any, where are the grocery stores? | fail | fail | fail |
+| Where does the name of the town Elder ness originate from? | fail | fail | fail |
+
 
 **Did it help?**
 
