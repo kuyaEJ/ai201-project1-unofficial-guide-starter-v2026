@@ -200,10 +200,10 @@ When I ask a question that is relevant to more than one corpus the retrieved chu
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
 | 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
 | 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 4. 1 chunk of top 3 chunks ending with punctuation symbol. | 1 of 5 | | | | |
+| 5. Unanswerable questions should scan entire corpus before terminating when top_k is 37 or more. | 5 of 5 | | | | |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
