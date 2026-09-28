@@ -238,10 +238,10 @@ From file: `run_2026-09-27_1721_before.md` and from function `run_eval.py::judge
 | 5 | Unanswerable questions should scan entire corpus before terminating | MISSED | The criteria was wrong with its measurements. I predicted a `top_k` equal to 37 would scan all the documents. There were 14 documents total and each test run only scanned 11-12 documents total. The calculation for `top_k` was wrong however, the criteria's second evaluation was correct since a higher `top_k` will definitely result in all documents being scanned before terminating especially for the question that is "in-corpus but unanswerable" about the origin of the name of Elder Ness town. The system in that case cannot know that the name is likely a pun. So while this was missed it was half right since a having higher top_k's will result in criteria being true (I used a 36 top_k instead of 41 due to miscalcuation for top_k using original chunk size of 800 instead of 700). The criteria shouldn't be changed even though the results are wrong. It just helps to evaluate how high `top_k` should be which is (total_chars / chunk_size with some extra space in case it needs it). This doesn't require a fix other than having a higher `top_k` to ensure all documents are scanned. |
 
 ## Diagnoses
-**1 Retrieved chunks contain the answer **
+**Acceptance Criteria 1: Retrieved chunks contain the answer**
 Question 1 asks about which town is the easiest to walk in for those who require accessibility. The answer is in `guide_accessibility.md` but the retrieved sources do not contain the answer of the chunk. The top_k was too low and the vector distance for the best answer was farther than the system expected resulting in the **retrieval stage** but it could also be in the **embedding stage** where the failure happened due to the first 5 chunks not containing the answer. The reranker or scoring step is wrong which is around these two stages. The correct chunk was missed by the initial vector search and was somewhat poorly ordered in priority for question 1. This is because the vector distances were not appropriately measured for the question since the answer ended up being farther away from the first chunks searched. The question was a little harder to find an answer for the system resulting it in needing a larger `top_k` to scan enough documents. I actually thought it would be easier to answer because it has the word `accessibility` in it and the file is the first one in the folder to alphabetically read but for some reason the system doesn't search that document as one of it's first files. The vector distancing similarity method of finding the right chunk can sometimes be wrong when corpora references keywords that are common in many documents like `walk`. When the keywords are widely referenced and the system may score other keywords like `accessibility` lower even if it's meant as a hint. I learned that in RAG simple vector similarity embeddings for keywords are measured in a broad manner in a question rather than by being measured for a narrower relevance. Additionally, having a higher chunk intake definitely helps to answer questions although it's best to have a optimized algorithm that orders the chunks better.
 
-**5 Unanswerable questions should scan entire corpus before terminating**
+**Acceptance Criteria 5: Unanswerable questions should scan entire corpus before terminating**
 Question 5 asks where does the name of the town Elder Ness originate from. The answer is not actually in the corpus and should have no answer. It was meant to be a wild and trick test question that would sound like it is "in-corpus" but wasn't. I ended up working and tricking the system. This resulted in the relevance gate not working as intended which was what I wanted. This means the pipeline failed at the **retrieval stage** again. It failed successfully but the system had to use retrieval and make token calls to see that it was out of corpus when it should terminate and detect it is out of scope already. To fix this the RAG system should either get more information to find an answer (increase scope) or it's retrieval should optimized to know more accurately what can be answered before searching.
 
 Overall, some targets were defintely set too low which was unintended. Then again the failures I wanted were also unintended too. The things I thought would suceed failed while the things I wanted to fail failed successfully. 
@@ -268,6 +268,7 @@ Overall, some targets were defintely set too low which was unintended. Then agai
 
 **What I changed:**
 I changed `top-k` to `10` so that it doesn't retrieve too many chunks but has just enough chunks to find the answer to question 1.
+
 **Why I picked it:**
 I picked this since it was the simplest to solve and vastly improved the margin of error for answering questions.
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
@@ -284,7 +285,7 @@ I picked this since it was the simplest to solve and vastly improved the margin 
 | 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
 | 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
 | 4. 1 chunk of top 3 chunks ending with punctuation symbol.| 1 of 5 | 5/5 | 5/5 | 5/5 | MET |
-| 5. Unanswerable questions should scan entire corpus before terminating when top_k is 37 or more. | 1 of 5 | 0/5 | 0/5 | 0/5 | 0/5 |
+| 5. Unanswerable questions should scan entire corpus before terminating when top_k is 37 or more. | 1 of 5 | 0/5 | 0/5 | 0/5 | MISSED |
 
 From file: `run_2026-09-27_2046_after.md` and from function `run_eval.py::judge`
 
@@ -309,7 +310,7 @@ This definitely helped the system to answer questions since it eventually found 
 ## What's Still Broken
 To fix the system I would change the search and scoring of questions to increase the accuracy of the `top_k` chunks retrieved.
 
-Question 4 is failing and cannot find the answer still. It it is the the answer is in the `eating.md` file and it does read a chunk from it but the model doesn't find the answer since it is not the correct chunk. The matching for vector distance in this question is especially bad in retrieval since grocery is a synonym of the stores label as market which confuses the system into thinking there's no answer.
+Question 4 is failing and cannot find the answer still. The answer is in the `eating.md` file and it does read a chunk from it but the model doesn't find the answer since it is not the correct chunk. The matching for vector distance in this question is especially bad in retrieval since grocery is a synonym of the stores label as market which confuses the system into thinking there's no answer.
 
 Question 5 is failing successfully but still shouldn't be doing model calls and searching for an answer. The system should already know it cannot provide one. My fix doesn't address this issue and I didn't try to fix it since it requires changing parts of the code I don't understand or that there's no support for testing currently and no time.
 
