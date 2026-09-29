@@ -176,6 +176,16 @@ Sources retrieved: [from guide_brightwater.md]
      Doing one? Say so here BEFORE you start. A feature this README never
      claims earns nothing.
      ───────────────────────────────────────────────────────────────────────── -->
+## Stretch Features:
+
+**Unit 1**
+
+- **Added a second embedding model:** I am still using all-MiniLM-L6-v2 but with PyTorch. I pip installed `sentence transformers` and set BUNDLED_MODEL to an empty string in `store.py` in order to use a different Embedding Model
+
+**Unit 2**
+
+- **Added a second chunking strategy:** In `chunker.py` chunk_documents we split sections by getting headers with `##`. We use a minimum chunk size to prevent chunks from being too small. Afterwards, we split sentences by finding the period punctuation symbols for a seperator and adding the sentences to the current chunk.
+
 
 ---
 
@@ -272,7 +282,7 @@ Overall, some targets were defintely set too low which was unintended. Then agai
 I changed `top-k` to `10` so that it doesn't retrieve too many chunks but has just enough chunks to find the answer to question 1.
 
 **Why I picked it:**
-I picked this since it was the simplest to solve and vastly improved the margin of error for answering questions.
+I picked this since it was the simplest to solve and vastly improved the margin of error for answering questions especially for question 1 where in the after log it found the answer. For question 3 in the after log the each relevant full hospital was found.
 <!-- Connect it to a specific diagnosis above in one sentence. If you can't,
      you picked a fix because it sounded impressive. -->
 
@@ -301,7 +311,7 @@ From file: `run_2026-09-27_2046_after.md` and from function `run_eval.py::judge`
 
 
 **Did it help?**
-This definitely helped the system to answer questions since it eventually found the right chunk without having to search the entire corpora. It doesn't solve every issue but tinkering with config.py does help make answers more findable.
+This definitely helped the system to answer questions since in the before log (`run_2026-09-27_1721_before.md`) **question 1** didn't find the correct answers due to the `top-k` not being high enough. However, when `top_k` was set to 10 the chunks provided were just enough that they found the right chunk without having to search the entire corpora. It doesn't solve every issue but tinkering config.py helps make answers findable. There's a limit to `top_k` however as tests in `run_2026-09-27_2254_secondafter.md` and `run_2026-09-28_1451_after_41.md` show even with `top-k` at 36 or 41 the system did not scan all chunks in the corpora stopping at 12/14 documents being sourced. Even if there were 14/14 documents sourced it wouldn't mean all chunks were checked since the corpora has 98 chunks total and it'll take only half of the chunks. For `acceptance criteria 5` at least, I discovered changing the `top-k` to a higher value did not help the system to scan all documents. Therefore, the function handling document retrieval is determining the 2 other sources do not contain relevant chunks. Limiting the number of corpora or chunks being scanned. Even if I set `top_k` to max chunks (98), `question 4` was not answered just due to it already being looked at and evaluated to not be an answer. **This is why I decided that 10 chunks was a good point since it answered 4 out of 5 test questions properly.** The only thing is in order to fulfill `acceptance criteria 5` I need to add a condition where in cases no good answer was found that it only terminates with "I did not find enough information..." only after searching all chunks. It isn't a optimized complex solution but searching all chunks in theory should help to ensure all chunks really were searched which eliminates the argument that answers were not found because it didn't find the right chunk. Of course, this would mean there might be too much noise or comparisons and data used so it should only be used in cases where every chunk needs to be searched which the system should have a flag to toggle on or off.
 <!-- Say plainly whether it did, and how you know. If it made things worse,
      say that — a change that backfired, honestly reported, earns full credit
      and is more interesting than one that worked. What matters is that you can

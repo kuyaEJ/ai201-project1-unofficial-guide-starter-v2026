@@ -48,7 +48,8 @@ _model = None
 
 # The model Chroma bundles. Anything else in config.EMBEDDING_MODEL means
 # "fetch that one from Hugging Face instead" — see `_embedder`.
-BUNDLED_MODEL = "all-MiniLM-L6-v2"
+# BUNDLED_MODEL = "all-MiniLM-L6-v2"
+BUNDLED_MODEL = ""
 
 
 class _OnnxEmbedder:
